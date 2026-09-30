@@ -365,7 +365,7 @@ export const processReturn = catchAsync(async (req: AuthRequest, res: Response, 
     order.status = OrderStatus.REFUNDING;
     await order.save();
 
-    const { paymentService } = require('../services/PaymentService');
+    const { paymentService } = await import('../services/PaymentService');
     try {
       if (order.paymentIntentId) {
         await paymentService.processRefund(order.paymentIntentId, order.refundAmount);
